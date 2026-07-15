@@ -1,0 +1,36 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -A x64
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Stage artifacts
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path stage | Out-Null
+          Copy-Item build/bin/Release/OpenXRWinUtils.exe stage/
+          Copy-Item build/bin/Release/openvr_api.dll stage/
+          Copy-Item manifest.vrmanifest stage/
+          Copy-Item assets/icon.png stage/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenXRWinUtils-windows-x64
+          path: stage/**
