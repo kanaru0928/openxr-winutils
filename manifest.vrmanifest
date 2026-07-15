@@ -1,0 +1,22 @@
+{
+    "source": "builtin",
+    "applications": [
+        {
+            "app_key": "kanaru.openxr-winutils",
+            "launch_type": "binary",
+            "binary_path_windows": "OpenXRWinUtils.exe",
+            "is_dashboard_overlay": true,
+            "image_path": "icon.png",
+            "strings": {
+                "en_us": {
+                    "name": "OpenXR WinUtils",
+                    "description": "Utility overlay for SteamVR (restart OVR Advanced Settings and more)."
+                },
+                "ja": {
+                    "name": "OpenXR WinUtils",
+                    "description": "SteamVR 用ユーティリティオーバーレイ（OVR Advanced Settings の再起動など）"
+                }
+            }
+        }
+    ]
+}
