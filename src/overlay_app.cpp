@@ -53,6 +53,11 @@ bool OverlayApp::Init() {
 
     vr::VROverlay()->SetOverlayWidthInMeters(m_overlayHandle, 2.0f);
     vr::VROverlay()->SetOverlayInputMethod(m_overlayHandle, vr::VROverlayInputMethod_Mouse);
+    // Required in addition to VROverlayInputMethod_Mouse for the overlay to
+    // actually receive VREvent_ScrollDiscrete events (handled below in
+    // ProcessOverlayEvents); without this flag scroll input is silently
+    // dropped by SteamVR.
+    vr::VROverlay()->SetOverlayFlag(m_overlayHandle, vr::VROverlayFlags_SendVRDiscreteScrollEvents, true);
 
     vr::HmdVector2_t mouseScale;
     mouseScale.v[0] = static_cast<float>(kOverlayWidth);
